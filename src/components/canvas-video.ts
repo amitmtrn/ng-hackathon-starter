@@ -16,17 +16,21 @@ import {Component, View, bootstrap} from "angular2/angular2";
 })
 export default class CanvasVideo {
   context: any = undefined;
+  context2: any = undefined;
   vendorUrl: any = undefined;
   width: number = 400;
   height: number = 400;
   color = {r: 0, g: 255, b: 0}
   gap: number = 20;
+  imageObj = new Image();
 
   constructor() {
     console.log('Canvas video load')
 
     var canvas = document.getElementById('canvas');
+    var canvas2 = document.getElementById('canvas2');
     this.context = canvas.getContext('2d');
+    this.context2 = canvas2.getContext('2d');
     this.vendorUrl = window.URL || window.webkitURL;
     this.video = document.getElementById('video');
 
@@ -43,16 +47,19 @@ export default class CanvasVideo {
         (err) => this.errorConnecting(err));
 
     video.addEventListener('play', () => this.draw());
+    this.imageObj.onload = () => this.context2.drawImage(this.imageObj, 69, 50);
     document.querySelector('canvas-video').addEventListener('changeColor', (e) => this.changeColor(e.detail.color));
+
+    this.imageObj.src = 'resources/images/Messier82.jpg';
   }
 
   changeColor(newColor) {
     this.color = newColor;
-    console.log(this.color);
   }
 
   draw() {
     var image;
+    var image2;
     var data;
     var i;
     var r;
@@ -61,6 +68,7 @@ export default class CanvasVideo {
 
     this.context.drawImage(this.video, 0, 0, this.width, this.height);
     image = this.context.getImageData(0, 0, this.width, this.height);
+    image2 = this.context2.getImageData(0, 0, this.width, this.height);
 
     data = image.data;
 
@@ -70,9 +78,9 @@ export default class CanvasVideo {
       b = data[i + 2];
 
       if (r > this.color.r - this.gap && g > this.color.g - this.gap && b > this.color.b - this.gap) {
-        data[i] = 0;
-        data[i + 1] = 0;
-        data[i + 2] = 0;
+        data[i] = image2.data[i];
+        data[i + 1] = image2.data[i + 1];
+        data[i + 2] = image2.data[i + 2];
       }
 
     }
