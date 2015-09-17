@@ -21,7 +21,7 @@ export default class CanvasVideo {
   width: number = 400;
   height: number = 400;
   color = {r: 0, g: 255, b: 0}
-  gap: number = 20;
+  gap: number = 100;
   imageObj = new Image();
 
   constructor() {
@@ -77,7 +77,9 @@ export default class CanvasVideo {
       g = data[i + 1];
       b = data[i + 2];
 
-      if (r > this.color.r - this.gap && g > this.color.g - this.gap && b > this.color.b - this.gap) {
+      if ((r > this.color.r - this.gap && r < this.color.r + this.gap)&&
+      (g > this.color.g - this.gap && g < this.color.g + this.gap)&&
+      (b > this.color.b - this.gap && b < this.color.g + this.gap)) {
         data[i] = image2.data[i];
         data[i + 1] = image2.data[i + 1];
         data[i + 2] = image2.data[i + 2];
