@@ -1,2 +1,10 @@
-<canvas-video></canvas-video>
-<input type="color" name="replacecolor" value="#00ff00">
+
+<div class="center">
+  <canvas-video></canvas-video>
+</div>
+
+<div class="center">
+  <p>Select Color to Remove from the screen</p>
+  <input type="color" name="replacecolor" [(ng-model)]="color" (change)="onColorChanged()" value="#00ff00">
+
+</div>

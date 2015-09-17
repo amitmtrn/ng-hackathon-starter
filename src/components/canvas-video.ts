@@ -19,6 +19,8 @@ export default class CanvasVideo {
   vendorUrl: any = undefined;
   width: number = 400;
   height: number = 400;
+  color = {r: 0, g: 255, b: 0}
+  gap: number = 20;
 
   constructor() {
     console.log('Canvas video load')
@@ -41,8 +43,13 @@ export default class CanvasVideo {
         (err) => this.errorConnecting(err));
 
     video.addEventListener('play', () => this.draw());
+    document.querySelector('canvas-video').addEventListener('changeColor', (e) => this.changeColor(e.detail.color));
   }
 
+  changeColor(newColor) {
+    this.color = newColor;
+    console.log(this.color);
+  }
 
   draw() {
     var image;
@@ -62,7 +69,7 @@ export default class CanvasVideo {
       g = data[i + 1];
       b = data[i + 2];
 
-      if (r <= 0 && g <= 255 && b <= 0) {
+      if (r > this.color.r - this.gap && g > this.color.g - this.gap && b > this.color.b - this.gap) {
         data[i] = 0;
         data[i + 1] = 0;
         data[i + 2] = 0;

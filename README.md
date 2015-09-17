@@ -16,6 +16,11 @@ Big thanks to @robwormald for help with using jspm to bundle up Angular 2 and th
     npm install http-server -g
 
 This will install `http-server` globally so that it may be run from the command line.
-#### And then in the project's directory: 
+#### And then in the project's directory:
 
-    http-server 
+    http-server
+
+
+* stuck at creating component inside component - directive feel unrelated
+* missing errors when not import Component
+* missing documentation/ documentation not clear (injectable)
